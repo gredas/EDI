@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Group Project Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>EDI GROUP PROJECT</h1>
+    <h3>Michał Fedorek, Bartłomiej Gręda, Uliana Kutyłowska</h3>
+
+    <button id="buttons" onclick="send_request()">
+        Generate
+    </button>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        function send_request() { 
+            
+            $.getJSON('https://my.api.mockaroo.com/users.json?key=5fa4f5b0', 
+                function (data) { 
+                    var items = [];
+                    items.push("<tr><td>First name</td><td>Last name</td><td>Country</td><td>Age</td><td>foreign_player</td><td>sport</td><td>position</td><td>email</td><td>phone</td></tr>");
+                    $.each( data, function( key, value ) {
+                        items.push("<tr><td>"+value.first_name+"</td><td>"+value.last_name+"</td><td>"+value.country+"</td><td>"+value.age+"</td><td>"+value.foreign_player+"</td><td>"+value.sport+"</td><td>"+value.position+"</td><td>"+value.email+"</td><td>"+value.phone+"</td></tr>");
+                    });
+                    console.log(items);
+                    $("<table/>", {
+                        "class": "asdf",
+                        html: items.join( "" )
+                     }).appendTo( "body" );
+                }) 
+            }
+    </script>
+</body>
+
+</html>
+
