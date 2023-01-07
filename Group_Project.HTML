@@ -32,9 +32,9 @@
                 $.getJSON('https://my.api.mockaroo.com/users.json?key=5fa4f5b0', 
                     function (data) { 
                         var items = [];
-                        items.push("<tr><td>First name</td><td>Last name</td><td>Country</td><td>Age</td><td>foreign_player</td><td>sport</td><td>position</td><td>email</td><td>phone</td></tr>");
+                        items.push("<tr><td>First name</td><td>Last name</td><td>Country</td><td>Age</td><td>foreign_player</td><td>sport</td><td>position</td><td>email</td><td>phone</td><td>salary</td><td>ip_address</td><td>card</td><td>language</td></tr>");
                         $.each( data, function( key, value ) {
-                            items.push("<tr><td>"+value.first_name+"</td><td>"+value.last_name+"</td><td>"+value.country+"</td><td>"+value.age+"</td><td>"+value.foreign_player+"</td><td>"+value.sport+"</td><td>"+value.position+"</td><td>"+value.email+"</td><td>"+value.phone+"</td></tr>");
+                            items.push("<tr><td>"+value.first_name+"</td><td>"+value.last_name+"</td><td>"+value.country+"</td><td>"+value.age+"</td><td>"+value.foreign_player+"</td><td>"+value.sport+"</td><td>"+value.position+"</td><td>"+value.email+"</td><td>"+value.phone+"</td><td>"+value.salary+"</td><td>"+value.ip_address+"</td><td>"+value.card+"</td><td>"+value.language+"</td></tr>");
                         });
                         console.log(items);
                         $("<table/>", {
