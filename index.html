@@ -13,23 +13,254 @@
         <h3 class="michal">Michał Fedorek</h3>
         <h3 class="bartek">Bartłomiej Gręda</h3>
         <h3 class="uliana">Uliana Kutylovskaya</h3>
+        <button id="buttons1" class="button1" onclick="send_request1()">
+            Generate First Table
+        </button>
+        
+        <button id="buttons2" class="button2" onclick="send_request2()">
+            Generate Second Table
+        </button>
 
-        <button id="buttons" onclick="send_request()">
-            Generate
+        <button id="buttons3" class="button3" onclick="send_request3()">
+            Generate Third Table
         </button>
         <div class="table">
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <div class="chart">
+            <canvas class="chart1" id="chart" style="display: none;"></canvas>
+            <canvas class="chart2" id="chart2" style="display: none;"></canvas>
+            <canvas class="chart1" id="chart3" style="display: none;"></canvas>
+            <canvas class="chart2" id="chart4" style="display: none;"></canvas>
+            <canvas class="chart1" id="chart5" style="display: none;"></canvas>
+            <canvas class="chart2" id="chart6" style="display: none;"></canvas>
+        </div>
+        <script>
+            document.getElementById("buttons1").addEventListener("click", function () {
 
-        </div>
-        <div>
-            <canvas id="MyChart"></canvas>
-        </div>
+                fetch("https://raw.githubusercontent.com/gredas/EDI/master/schema1%20(1).json")
+                    .then(response => response.json())
+                    .then(data => {
+
+                        var labels = data.map(item => item.first_name + " " + item.last_name);
+                        var values = data.map(item => item.age);
+                        var foreign_players = data.filter(item => item.foreign_player === true);
+                        var local_players = data.filter(item => item.foreign_player === false);
+                        var foreign_players_count = foreign_players.length;
+                        var local_players_count = local_players.length;
+
+                        var ctx1 = document.getElementById("chart").getContext("2d");
+                        var chart = new Chart(ctx1, {
+                            type: "bar",
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Age',
+                                    data: values,
+                                    backgroundColor: "rgba(236, 34, 229, 0.2)",
+                                    borderColor: "rgba(46, 236, 34, 1)",
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+
+                        document.getElementById("chart").style.display = "block";
+                        document.getElementById("chart3").style.display = "none";
+                        document.getElementById("chart5").style.display = "none";
+
+                        var ctx3 = document.getElementById("chart2").getContext("2d");
+                        var chart3 = new Chart(ctx3, {
+                            type: "pie",
+                            data: {
+                                labels: ["Foreign Players", "Local Players"],
+                                datasets: [{
+                                    data: [foreign_players_count, local_players_count],
+                                    backgroundColor: ["rgba(236, 34, 229, 0.2)", "rgba(54, 162, 235, 0.2)"],
+                                    borderColor: ["rgba(46, 236, 34, 1)", "rgba(54, 162, 235, 1)"],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {}
+                        });
+
+                        document.getElementById("chart2").style.display = "block";
+                        document.getElementById("chart4").style.display = "none";
+                        document.getElementById("chart6").style.display = "none";
+                    });
+            });
+
+
+
+
+
+
+        </script>
+        <script>
+            document.getElementById("buttons2").addEventListener("click", function () {
+
+                fetch("https://raw.githubusercontent.com/gredas/EDI/master/schema1%20(2).json")
+                    .then(response => response.json())
+                    .then(data => {
+
+                        var labels = data.map(item => item.first_name + " " + item.last_name);
+                        var values = data.map(item => item.age);
+                        var foreign_players = data.filter(item => item.foreign_player === true);
+                        var local_players = data.filter(item => item.foreign_player === false);
+                        var foreign_players_count = foreign_players.length;
+                        var local_players_count = local_players.length;
+
+                        var ctx1 = document.getElementById("chart3").getContext("2d");
+                        var chart = new Chart(ctx1, {
+                            type: "bar",
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Age',
+                                    data: values,
+                                    backgroundColor: "rgba(236, 34, 229, 0.2)",
+                                    borderColor: "rgba(46, 236, 34, 1)",
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+
+                        document.getElementById("chart3").style.display = "block";
+                        document.getElementById("chart").style.display = "none";
+                        document.getElementById("chart5").style.display = "none";
+
+                        var ctx3 = document.getElementById("chart4").getContext("2d");
+                        var chart3 = new Chart(ctx3, {
+                            type: "pie",
+                            data: {
+                                labels: ["Foreign Players", "Local Players"],
+                                datasets: [{
+                                    data: [foreign_players_count, local_players_count],
+                                    backgroundColor: ["rgba(236, 34, 229, 0.2)", "rgba(54, 162, 235, 0.2)"],
+                                    borderColor: ["rgba(46, 236, 34, 1)", "rgba(54, 162, 235, 1)"],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {}
+                        });
+
+                        document.getElementById("chart4").style.display = "block";
+                        document.getElementById("chart2").style.display = "none";
+                        document.getElementById("chart6").style.display = "none";
+                    });
+            });
+        </script>
+        <script>
+            document.getElementById("buttons3").addEventListener("click", function () {
+
+                fetch("https://raw.githubusercontent.com/gredas/EDI/master/schema1%20(3).json")
+                    .then(response => response.json())
+                    .then(data => {
+
+                        var labels = data.map(item => item.first_name + " " + item.last_name);
+                        var values = data.map(item => item.age);
+                        var foreign_players = data.filter(item => item.foreign_player === true);
+                        var local_players = data.filter(item => item.foreign_player === false);
+                        var foreign_players_count = foreign_players.length;
+                        var local_players_count = local_players.length;
+
+                        var ctx1 = document.getElementById("chart5").getContext("2d");
+                        var chart = new Chart(ctx1, {
+                            type: "bar",
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Age',
+                                    data: values,
+                                    backgroundColor: "rgba(236, 34, 229, 0.2)",
+                                    borderColor: "rgba(46, 236, 34, 1)",
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+
+                        document.getElementById("chart5").style.display = "block";
+                        document.getElementById("chart3").style.display = "none";
+                        document.getElementById("chart").style.display = "none";
+
+                        var ctx3 = document.getElementById("chart6").getContext("2d");
+                        var chart3 = new Chart(ctx3, {
+                            type: "pie",
+                            data: {
+                                labels: ["Foreign Players", "Local Players"],
+                                datasets: [{
+                                    data: [foreign_players_count, local_players_count],
+                                    backgroundColor: ["rgba(236, 34, 229, 0.2)", "rgba(54, 162, 235, 0.2)"],
+                                    borderColor: ["rgba(46, 236, 34, 1)", "rgba(54, 162, 235, 1)"],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {}
+                        });
+                        document.getElementById("chart2").style.display = "none";
+                        document.getElementById("chart4").style.display = "none";
+                        document.getElementById("chart6").style.display = "block";
+                    });
+            });
+
+        </script>
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
         <script type="text/javascript">
-            function send_request() { 
+            function send_request1() {
+                $.getJSON('https://raw.githubusercontent.com/gredas/EDI/master/schema1%20(1).json', 
+                    function (data) { 
+                        var items = [];
+                        items.push("<tr><td>First name</td><td>Last name</td><td>Country</td><td>Age</td><td>foreign_player</td><td>sport</td><td>position</td><td>email</td><td>phone</td><td>salary</td><td>ip_address</td><td>card</td><td>language</td></tr>");
+                        $.each( data, function( key, value ) {
+                            items.push("<tr><td>"+value.first_name+"</td><td>"+value.last_name+"</td><td>"+value.country+"</td><td>"+value.age+"</td><td>"+value.foreign_player+"</td><td>"+value.sport+"</td><td>"+value.position+"</td><td>"+value.email+"</td><td>"+value.phone+"</td><td>"+value.salary+"</td><td>"+value.ip_address+"</td><td>"+value.card+"</td><td>"+value.language+"</td></tr>");
+                        });
+                        console.log(items);
+                        $("<table/>", {
+                            "class": "asdf",
+                            html: items.join( "" )
+                        }).appendTo( "div.table" );
+                    }) 
+            }
+            function send_request2() {
+                $.getJSON('https://raw.githubusercontent.com/gredas/EDI/master/schema1%20(2).json', 
+                    function (data) { 
+                        var items = [];
+                        items.push("<tr><td>First name</td><td>Last name</td><td>Country</td><td>Age</td><td>foreign_player</td><td>sport</td><td>position</td><td>email</td><td>phone</td><td>salary</td><td>ip_address</td><td>card</td><td>language</td></tr>");
+                        $.each( data, function( key, value ) {
+                            items.push("<tr><td>"+value.first_name+"</td><td>"+value.last_name+"</td><td>"+value.country+"</td><td>"+value.age+"</td><td>"+value.foreign_player+"</td><td>"+value.sport+"</td><td>"+value.position+"</td><td>"+value.email+"</td><td>"+value.phone+"</td><td>"+value.salary+"</td><td>"+value.ip_address+"</td><td>"+value.card+"</td><td>"+value.language+"</td></tr>");
+                        });
+                        console.log(items);
+                        $("<table/>", {
+                            "class": "asdf",
+                            html: items.join( "" )
+                        }).appendTo( "div.table" );
+                    }) 
+            }
+            function send_request3() { 
                 
-                $.getJSON('https://my.api.mockaroo.com/users.json?key=5fa4f5b0', 
+                $.getJSON('https://raw.githubusercontent.com/gredas/EDI/master/schema1%20(3).json', 
                     function (data) { 
                         var items = [];
                         items.push("<tr><td>First name</td><td>Last name</td><td>Country</td><td>Age</td><td>foreign_player</td><td>sport</td><td>position</td><td>email</td><td>phone</td><td>salary</td><td>ip_address</td><td>card</td><td>language</td></tr>");
@@ -46,10 +277,8 @@
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-
         </script>
     </div>
 </body>
 
 </html>
-
